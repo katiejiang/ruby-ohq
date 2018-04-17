@@ -8,8 +8,7 @@
       <th>User</th>
       <th>Course</th>
       <th>Text</th>
-      <th>Waiting</th>
-      <th>Done</th>
+      <th>Status</th>
       <th>Created at</th>
       <th colspan="3"></th>
     </tr>
@@ -21,8 +20,7 @@
         <td><%= question.user %></td>
         <td><%= question.course %></td>
         <td><%= question.text %></td>
-        <td><%= question.waiting %></td>
-        <td><%= question.done %></td>
+        <td><%= question.status %></td>
         <td><%= question.created_at %></td>
         <td><%= link_to 'Show', question %></td>
         <td><%= link_to 'Edit', edit_question_path(question) %></td>
