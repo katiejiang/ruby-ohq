@@ -1,6 +1,12 @@
-<div id="main" class="ui container">
-  <h1 class="ui header">
-    Welcome to Office Hours Queue!
-    <div class="sub header">Sign up or log in to get started!</div>
-  </h1>
+<div id="welcome">
+  <div class="ui container">
+    <div class="ui middle aligned grid">
+      <div class="seven wide column">
+        <%= render 'welcome/login' %>
+      </div>
+      <div class="seven wide column">
+        <%= image_tag 'question.jpg', style: 'height: 700px;' %>
+      </div>
+    </div>
+  </div>
 </div>
