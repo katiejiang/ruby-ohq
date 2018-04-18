@@ -1,32 +1,55 @@
-<%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= form_with(model: user, local: true, class: 'ui form', id: 'signup-form') do |form| %>
+<h2 class="ui centered header">
+  Welcome to Office Hours Queue
+  <div class="sub header">
+    Sign up to request help during office hours.
+  </div>
+</h2>
 
-      <ul>
+<div class="field">
+  <div class="ui left icon input">
+    <i class="user icon"></i>
+    <%= form.text_field :name, id: :user_name, placeholder: 'Name' %>
+  </div>
+</div>
+
+<div class="field">
+  <div class="ui left icon input">
+    <i class="mail icon"></i>
+    <%= form.text_field :email, id: :user_email, placeholder: 'Email address' %>
+  </div>
+</div>
+
+<div class="field">
+  <div class="ui left icon input">
+    <i class="lock icon"></i>
+    <%= form.password_field :password, id: :user_password, placeholder: 'Password' %>
+  </div>
+</div>
+
+<div class="actions">
+  <%= form.submit class: 'ui fluid submit button' %>
+</div>
+
+<% if user.errors.any? %>
+  <% class_name = user.class.name.downcase %>
+  <% user.errors.keys.each do |field| %>
+      <% if user.errors[field].any? %>
+        <%= javascript_tag do %>
+          document.getElementById('<%= "#{class_name}_#{field}" %>').parentElement.parentElement.classList.add('error');
+        <% end %>
+      <% end %>
+  <% end %>
+
+  <div id="error_explanation" class="ui red message">
+    <ul class="list">
       <% user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :user_name %>
+    </ul>
   </div>
+<% end %>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email, id: :user_email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password, id: :user_password %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<br/>
+<a href="/login">Already have an account? Log in here!</a>
 <% end %>

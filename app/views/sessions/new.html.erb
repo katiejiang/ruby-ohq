@@ -1,8 +1,10 @@
 <div id="welcome">
   <div class="ui container">
-    <div class="ui middle aligned grid">
+    <div class="ui middle aligned stackable grid">
       <div class="seven wide column">
-        <%= render 'sessions/login' %>
+        <div class="ui stacked center aligned segment">
+          <%= render 'sessions/form' %>
+        </div>
       </div>
       <div class="seven wide column">
         <%= image_tag 'question.jpg', style: 'height: 700px;' %>

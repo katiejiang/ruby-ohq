@@ -1,5 +1,14 @@
-<h1>New User</h1>
-
-<%= render 'form', user: @user %>
-
-<%= link_to 'Back', users_path %>
+<div id="welcome">
+  <div class="ui container">
+    <div class="ui middle aligned stackable grid">
+      <div class="seven wide column">
+        <div class="ui stacked segment">
+          <%= render 'form', user: @user %>
+        </div>
+      </div>
+      <div class="seven wide column">
+        <%= image_tag 'question.jpg', style: 'height: 700px;' %>
+      </div>
+    </div>
+  </div>
+</div>
