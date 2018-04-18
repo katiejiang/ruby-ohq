@@ -3,9 +3,7 @@
     <%= link_to 'Office Hours Queue', '/', method: :get, class: 'item' %>
     <%= link_to 'Courses', '/courses', method: :get, class: 'item' %>
     <div class="right menu">
-      <a class="item">
-        Account
-      </a>
+      <%= link_to current_user.name, current_user, class: 'item' %>
       <%= link_to 'Logout', '/logout', method: :delete, class: 'item' %>
     </div>
   </div>

@@ -7,6 +7,6 @@ Rails.application.routes.draw do
 
   resources :questions
   resources :courses
-  resources :users
+  resources :users, except: [:index]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htmlc
 end

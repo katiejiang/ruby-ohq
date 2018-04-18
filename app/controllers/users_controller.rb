@@ -1,20 +1,16 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user, except: [:index, :show, :new, :create]
-
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-  end
+  before_action :set_user, except: [:index, :new, :create]
+  before_action :authenticate_user, except: [:new, :create]
 
   # GET /users/1
   # GET /users/1.json
   def show
+    redirect_to current_user unless @user == current_user
   end
 
   # GET /users/new
   def new
+    redirect_to root_path if logged_in?
     @user = User.new
   end
 
