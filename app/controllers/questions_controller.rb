@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = @course.questions.new(question_params.merge(user_id: current_user.id))
+    @question = @course.questions.new(question_params.merge(user_id: current_user.id, status: 'Waiting'))
 
     if @question.save
       redirect_to @course
@@ -38,14 +38,10 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
-      else
-        format.html { render :edit }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-      end
+    if @question.user == current_user && @question.update(question_params)
+      redirect_to @question.course
+    else
+      render :edit
     end
   end
 
@@ -53,7 +49,7 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.json
   def destroy
     @question.destroy if @question.user == current_user
-    redirect_back(fallback_location: @course)
+    redirect_to @course
   end
 
   private
