@@ -1,29 +1,62 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/nav' %>
 
-<p>
-  <strong>User:</strong>
-  <%= @question.user %>
-</p>
-
-<p>
-  <strong>Course:</strong>
-  <%= @question.course %>
-</p>
-
-<p>
-  <strong>Text:</strong>
-  <%= @question.text %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @question.status %>
-</p>
-
-<p>
-  <strong>Created at:</strong>
-  <%= @question.created_at %>
-</p>
-
-<%= link_to 'Edit', edit_course_question_path(@course, @question) %> |
-<%= link_to 'Back', course_questions_path(@course) %>
+<div class="ui grid stackable container">
+  <div class="centered row" style="margin-top: 48px;">
+    <div class="eight wide column">
+      <div class="ui segment">
+        <div class="ui ribbon <%= @question.ribbon_color %> label">
+          <%= @question.status %>
+        </div>
+        <div class="ui items" style="padding: 0px 36px 12px 36px;">
+          <div class="item">
+            <div class="content">
+              <div class="header">
+                <h2 class="ui header">
+                  <%= @question.user.name %>
+                </h2>
+              </div>
+              <div class="meta">
+                <%= @question.course.name %>
+              </div>
+              <div class="description">
+                <p><%= @question.text %></p>
+              </div>
+              <div class="extra">
+                <br />
+                <% if @question.status == 'Waiting' %>
+                  <a class="ui sky button">Help</a>
+                <% else %>
+                  <a class="ui sky button">Resolve</a>
+                <% end %>
+                <%= link_to 'Edit', edit_course_question_path(@course, @question), class: 'ui sky button' %>
+                <%= link_to 'Back', @course, class: 'ui button' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="centered row">
+    <div class="twelve wide column">
+      <table class="ui selectable table">
+        <thead>
+          <tr>
+            <th class="three wide">Name</th>
+            <th class="three wide">Status</th>
+            <th>Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @course.questions.each do |question| %>
+            <tr class="<%= question.status_color %>" onclick="window.location='<%= course_question_path(@course, question)%>'">
+              <td><%= question.user.name %></td>
+              <td><%= question.status %></td>
+              <td><%= question.text %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
