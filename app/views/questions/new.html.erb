@@ -1,5 +1,19 @@
-<h1>New Question</h1>
+<%= render 'layouts/nav' %>
 
-<%= render 'form', course: @course, question: @question %>
-
-<%= link_to 'Back', course_questions_path(@course) %>
+<div class="ui grid container">
+  <div class="centered row" style="margin-top: 48px;">
+    <div class="twelve wide column">
+      <div class="ui segment" style="padding: 40px 48px 36px 48px;">
+        <div class="sixteen wide column">
+          <h2 class="ui header">
+            New Question
+            <div class="sub header">
+              Join the office hours queue to request help
+            </div>
+          </h2>
+          <%= render 'form', course: @course, question: @question %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

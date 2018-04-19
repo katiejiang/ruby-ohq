@@ -11,8 +11,9 @@
 </div>
 
 <div class="actions">
-  <%= form.submit 'Join Queue', class: 'ui sky button' %>
-  <%= link_to 'Cancel', course, class: 'ui button' %>
+  <%= form.submit 'Save', class: 'ui sky button' %>
+  <%= link_to 'Cancel', @course, class: 'ui button' %>
+  <%= link_to 'Remove', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui google plus button' %>
 </div>
 
 <% if question.errors.any? %>

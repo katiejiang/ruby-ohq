@@ -33,7 +33,7 @@ class QuestionsController < ApplicationController
     else
       render :new
     end
-  en
+  end
 
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
