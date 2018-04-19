@@ -21,6 +21,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
+    redirect_to course_question_path(@course, @question) unless @question.user == current_user
   end
 
   # POST /questions

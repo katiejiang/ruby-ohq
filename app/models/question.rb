@@ -15,4 +15,8 @@ class Question < ApplicationRecord
     return 'green' if status == 'Being helped'
     return 'yellow' if status == 'Waiting'
   end
+
+  def asked_by?(user)
+    return self.user == user
+  end
 end
