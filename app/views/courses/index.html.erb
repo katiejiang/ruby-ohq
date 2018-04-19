@@ -1,32 +1,35 @@
-<%= render 'courses/nav' %>
+<%= render 'layouts/nav' %>
 
-<div class="ui grid centered container">
-  <div class="sixteen wide column">
-    <p id="notice"><%= notice %></p>
-    <h1 class="ui header">Courses</h1>
+<div class="ui grid container">
+  <div class="centered row" style="margin-top: 24px;">
+    <div class="sixteen wide column">
+      <h1 class="ui header">Courses</h1>
 
-    <table class="ui table">
-      <thead>
-        <tr>
-          <th class="three wide">Name</th>
-          <th class="twelve wide">Description</th>
-          <th colspan="3">
-            <%= link_to 'New Course', new_course_path, class: 'ui fluid button' %>
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @courses.each do |course| %>
+      <table class="ui table">
+        <thead>
           <tr>
-            <td><%= course.name %></td>
-            <td><%= course.description %></td>
-            <td><%= link_to 'Show', course %></td>
-            <td><%= link_to 'Edit', edit_course_path(course) %></td>
-            <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <th class="three wide">Name</th>
+            <th class="twelve wide">Description</th>
+            <th colspan="3">
+              <%= link_to 'New Course', new_course_path, class: 'ui fluid button' %>
+            </th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% @courses.each do |course| %>
+            <tr>
+              <td><%= course.name %></td>
+              <td><%= course.description %></td>
+              <td><%= link_to 'Show', course %></td>
+              <td><%= link_to 'Edit', edit_course_path(course) %></td>
+              <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <p id="notice"><%= notice %></p>
+    </div>
   </div>
 </div>

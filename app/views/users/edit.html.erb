@@ -1,6 +1,11 @@
-<h1>Editing User</h1>
+<%= render 'layouts/nav' %>
 
-<%= render 'form', user: @user %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<div class="ui grid container">
+  <div class="centered row" style="margin-top: 48px;">
+    <div class="twelve wide column">
+      <div class="ui segment" style="padding: 12px 48px 36px 48px;">
+        <%= render 'edit_form', user: @user %>
+      </div>
+    </div>
+  </div>
+</div

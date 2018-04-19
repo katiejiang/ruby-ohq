@@ -1,0 +1,47 @@
+<%= form_with(model: user, local: true, class: 'ui form', id: 'signup-form') do |form| %>
+<h2 class="ui header">
+  Profile
+  <div class="sub header">
+    Edit your personal profile
+  </div>
+</h2>
+
+<div class="field">
+  <div class="ui left icon input">
+    <i class="user icon"></i>
+    <%= form.text_field :name, id: :user_name, placeholder: 'Name' %>
+  </div>
+</div>
+
+<div class="field">
+  <div class="ui left icon input">
+    <i class="mail icon"></i>
+    <%= form.email_field :email, id: :user_email, placeholder: 'Email address' %>
+  </div>
+</div>
+
+<div class="actions">
+  <%= form.submit 'Update', class: 'ui submit sky button' %>
+  <%= link_to 'Back', @user, class: 'ui button' %>
+</div>
+
+<% if user.errors.any? %>
+  <% class_name = user.class.name.downcase %>
+  <% user.errors.keys.each do |field| %>
+      <% if user.errors[field].any? %>
+        <%= javascript_tag do %>
+          document.getElementById('<%= "#{class_name}_#{field}" %>').parentElement.parentElement.classList.add('error');
+        <% end %>
+      <% end %>
+  <% end %>
+
+  <div id="error_explanation" class="ui red message">
+    <ul class="list">
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<br />
+<% end %>

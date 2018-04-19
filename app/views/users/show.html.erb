@@ -1,19 +1,42 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/nav' %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<div class="ui grid container">
+  <div class="centered row" style="margin-top: 48px;">
+    <div class="twelve wide column">
+      <div class="ui segment" style="padding: 40px 48px 36px 48px;">
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+        <h2 class="ui header">
+          Profile
+          <div class="sub header">
+            View your profile and courses
+          </div>
+        </h2>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
+        <table class="ui table">
+          <tbody>
+            <tr>
+              <td class="collapsing">
+                <i class="user grey icon"></i>
+                <%= @user.name %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <i class="mail grey icon"></i>
+                <%= @user.email %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+        <%= link_to 'Edit', edit_user_path(@user), class: 'ui sky button' %>
+        <%= link_to 'Change Password', edit_user_path(@user), class: 'ui button' %>
+        <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui google plus button' %>
+
+        <h3 class="ui header">Courses</h3>
+
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
+  </div>
+</div

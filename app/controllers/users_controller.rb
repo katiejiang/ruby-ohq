@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    if @user == create_user && @user.update(user_params)
+    if @user == current_user && @user.update(user_params)
       session[:user_id] = @user.id
       redirect_to @user
     else
