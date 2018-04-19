@@ -26,14 +26,14 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    @question = @course.questions.new(question_params.merge(user_id: current_user.id))
 
     if @question.save
       redirect_to @course
     else
       render :new
     end
-  end
+  en
 
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
