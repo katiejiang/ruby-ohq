@@ -5,4 +5,9 @@ class Question < ApplicationRecord
   validates :user, presence: true
   validates :course, presence: true
   validates :text, presence: true
+
+  def status_color
+    return 'positive' if status == 'Being helped'
+    return 'warning' if status == 'Waiting'
+  end
 end

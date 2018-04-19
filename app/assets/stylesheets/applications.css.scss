@@ -17,3 +17,7 @@
 .ui.sky.button:hover {
   background-color: #7BC4D3;
 }
+
+.ui.selectable.table > tbody > tr {
+  cursor: pointer;
+}

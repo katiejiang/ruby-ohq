@@ -1,7 +1,7 @@
 <%= form_with(model: [course, question], local: true, class: 'ui form') do |form| %>
 
 <div class="field">
-  <%= form.label :text %>
+  <%= form.label :text, 'Description' %>
   <%= form.text_area :text, id: :question_text %>
 </div>
 
