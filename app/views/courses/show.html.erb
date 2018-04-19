@@ -15,7 +15,7 @@
 
           <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
           <% if current_user.is_staff?(@course) %>
-            <%= link_to 'Edit', edit_course_path(@course), class: 'ui button' %>
+            <%= link_to 'Settings', edit_course_path(@course), class: 'ui button' %>
           <% else %>
             <a class="ui button">
               <i class="yellow star icon"></i>
@@ -36,7 +36,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @course.questions.each do |question| %>
+          <% @course.queue.each do |question| %>
           <tr class="<%= question.status_color %>" onclick="window.location='<%= course_question_path(@course, question)%>'">
             <td><%= question.user.name %></td>
             <td><%= question.status %></td>

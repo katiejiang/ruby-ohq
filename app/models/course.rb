@@ -17,4 +17,8 @@ class Course < ApplicationRecord
   def add_student(user)
     Student.create(user: user, course: self, favorite: true)
   end
+
+  def queue
+    questions.select{ |question| question[:status] != 'Resolved' }
+  end
 end
