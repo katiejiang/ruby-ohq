@@ -22,9 +22,9 @@
         <td><%= question.text %></td>
         <td><%= question.status %></td>
         <td><%= question.created_at %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', course_question_path(@course, question) %></td>
+        <td><%= link_to 'Edit', edit_course_question_path(@course, question) %></td>
+        <td><%= link_to 'Destroy', [@course, question], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_course_question_path %>
