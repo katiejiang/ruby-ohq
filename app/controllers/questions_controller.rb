@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question_id, only: [:help, :resolve]
   before_action :authenticate_user
   before_action :set_course
 
@@ -53,10 +54,28 @@ class QuestionsController < ApplicationController
     redirect_to @course
   end
 
+  # POST /questions/1/help
+  def help
+    return unless current_user.is_staff?(@course)
+    @question.update(status: 'Being helped')
+    redirect_to course_question_path(@course, @question)
+  end
+
+  # POST /questions/1/resolve
+  def resolve
+    return unless current_user.is_staff?(@course)
+    @question.update(status: 'Resolved')
+    redirect_to @course
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
+    end
+
+    def set_question_id
+      @question = Question.find(params[:question_id])
     end
 
     def set_course
