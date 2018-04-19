@@ -1,8 +1,7 @@
 class User < ApplicationRecord
   has_many :students, dependent: :destroy
   has_many :staffs, dependent: :destroy
-  has_many :enrolled_courses, through: :students
-  has_many :staffed_courses, through: :staffs
+  has_many :questions, dependent: :destroy
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
