@@ -5,4 +5,16 @@ class Course < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: :True
+
+  def add_admin(user)
+    Staff.create(user: user, course: self, admin: true)
+  end
+
+  def add_staff(user)
+    Staff.create(user: user, course: self, admin: false)
+  end
+
+  def add_student(user)
+    Student.create(user: user, course: self, favorite: true)
+  end
 end

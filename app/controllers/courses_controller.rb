@@ -26,6 +26,7 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(course_params)
+    @course.add_admin(current_user)
     if @course.save
       redirect_to @course
     else
