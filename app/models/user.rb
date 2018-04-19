@@ -12,4 +12,16 @@ class User < ApplicationRecord
     return unless email
     errors.add(:email, "must have an '@' and a '.'") unless email.include?('@') && email.include?('.')
   end
+
+  def is_admin?(course)
+    return !Staff.find_by(user: self, course: course, admin: true).nil?
+  end
+
+  def is_staff?(course)
+    return !Staff.find_by(user: self, course: course).nil?
+  end
+
+  def is_student?(course)
+    return !Student.find_by(user: self, course: course).nil?
+  end
 end
