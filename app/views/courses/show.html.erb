@@ -15,11 +15,35 @@
 
           <%= link_to 'Edit', edit_course_path(@course), class: 'ui sky button' %>
 
-          <%= link_to 'Back', courses_path, class: 'ui button' %>
-
           <p id="notice"><%= notice %></p>
         </div>
       </div>
+      <table class="ui table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Katie</td>
+            <td>Being helped</td>
+            <td>Problem 2 on HW 8</td>
+          </tr>
+          <tr>
+            <td>Jamie</td>
+            <td>Waiting</td>
+            <td>Midterm regrade request</td>
+          </tr>
+          <tr>
+            <td>Jill</td>
+            <td>Waiting</td>
+            <td>Problem 4 on HW 8</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
