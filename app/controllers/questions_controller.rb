@@ -63,7 +63,7 @@ class QuestionsController < ApplicationController
 
   # POST /questions/1/resolve
   def resolve
-    return unless current_user.is_staff?(@course)
+    return unless current_user.is_staff?(@course) || @question.user == current_user
     @question.update(status: 'Resolved')
     redirect_to @course
   end
