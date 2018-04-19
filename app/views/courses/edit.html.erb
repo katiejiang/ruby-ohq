@@ -1,6 +1,19 @@
-<h1>Editing Course</h1>
+<%= render 'layouts/nav' %>
 
-<%= render 'form', course: @course %>
-
-<%= link_to 'Show', @course %> |
-<%= link_to 'Back', courses_path %>
+<div class="ui grid container">
+  <div class="centered row" style="margin-top: 48px;">
+    <div class="twelve wide column">
+      <div class="ui segment" style="padding: 40px 48px 36px 48px;">
+        <div class="sixteen wide column">
+          <h2 class="ui header">
+            Edit Course
+            <div class="sub header">
+              Update course description and manage staff members
+            </div>
+          </h2>
+          <%= render 'form', course: @course %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,27 +1,44 @@
-<%= form_with(model: course, local: true) do |form| %>
-  <% if course.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+<%= form_with(model: course, local: true, class: 'ui form') do |form| %>
 
-      <ul>
+<div class="field">
+  <%= form.label :name %>
+  <%= form.text_field :name, id: :course_name %>
+</div>
+
+<div class="field">
+  <%= form.label :description %>
+  <%= form.text_area :description, id: :course_description %>
+</div>
+
+<div class="actions">
+  <% if current_page?(new_course_path) %>
+    <%= form.submit 'Create Course', class: 'ui sky button' %>
+    <%= link_to 'Cancel', courses_path, class: 'ui button' %>
+  <% else %>
+    <%= form.submit 'Save', class: 'ui sky button' %>
+    <%= link_to 'Cancel', @course, class: 'ui button' %>
+    <%= link_to 'Delete', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui google plus button' %>
+  <% end %>
+
+</div>
+
+<% if course.errors.any? %>
+  <% class_name = course.class.name.downcase %>
+  <% course.errors.keys.each do |field| %>
+      <% if course.errors[field].any? %>
+        <%= javascript_tag do %>
+          document.getElementById('<%= "#{class_name}_#{field}" %>').parentElement.parentElement.classList.add('error');
+        <% end %>
+      <% end %>
+  <% end %>
+
+  <div id="error_explanation" class="ui red message">
+    <ul class="list">
       <% course.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :course_name %>
+    </ul>
   </div>
+<% end %>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, id: :course_description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
