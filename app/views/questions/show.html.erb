@@ -25,7 +25,9 @@
                 <br />
                 <% if @question.asked_by?(current_user) %>
                   <%= link_to 'Edit', edit_course_question_path(@course, @question), class: 'ui sky button' %>
-                  <%= link_to 'Resolve', course_question_resolve_path(@course, @question), method: :post, class: 'ui button' %>
+                  <% if @question.status != 'Resolved' %>
+                    <%= link_to 'Resolve', course_question_resolve_path(@course, @question), method: :post, class: 'ui button' %>
+                  <% end %>
                 <% elsif current_user.is_staff?(@course) %>
                   <% if @question.status == 'Waiting' %>
                     <%= link_to 'Help', course_question_help_path(@course, @question), method: :post, class: 'ui sky button' %>
