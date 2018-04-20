@@ -1,5 +1,6 @@
 # Office Hours Queue
 CIS 196 (Ruby on Rails) Final Project
+
 Katie Jiang
 
 ![Login page](/screenshots/login.png?raw=true)
