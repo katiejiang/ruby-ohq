@@ -3,6 +3,13 @@
     <%= link_to 'Office Hours Queue', '/', method: :get, class: 'item' %>
     <%= link_to 'Courses', '/courses', method: :get, class: 'item' %>
     <div class="right menu">
+      <div class="ui right aligned search item" id="nav-search">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Search courses">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
       <%= link_to current_user.name, current_user, class: 'item' %>
       <%= link_to 'Logout', '/logout', method: :delete, class: 'item' %>
     </div>

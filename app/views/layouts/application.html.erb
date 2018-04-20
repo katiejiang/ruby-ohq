@@ -12,4 +12,14 @@
   <body>
     <%= yield %>
   </body>
+
+  <script type="text/javascript">
+  $('#nav-search').search({
+    'type': 'category',
+    'source': <%= @search_contents %>,
+    'onSelect' : function(result, response) {
+      window.location.replace(result['link'])
+    }
+  })
+  </script>
 </html>
