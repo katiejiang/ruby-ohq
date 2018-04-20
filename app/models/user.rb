@@ -28,12 +28,12 @@ class User < ApplicationRecord
     return !Student.find_by(user: self, course: course).nil?
   end
 
-  def enroll
-    Student.create(user: user, course: self)
+  def enroll(course)
+    Student.create(user: self, course: course)
   end
 
-  def unenroll
-    student = Student.create(user: user, course: self)
+  def unenroll(course)
+    student = Student.find_by(user: self, course: course)
     student.destroy if student
   end
 end

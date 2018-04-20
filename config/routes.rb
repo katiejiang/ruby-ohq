@@ -7,10 +7,19 @@ Rails.application.routes.draw do
 
   resources :courses do
     resources :questions do
-      post '/help', to: 'questions#help'
-      post '/resolve', to: 'questions#resolve'
     end
   end
   resources :users, except: [:index]
+
+  # COURSES
+  post '/courses/:id/enroll', to: 'courses#enroll'
+  post '/courses/:id/unenroll', to: 'courses#unenroll'
+
+  # QUESTIONS
+  post 'courses/:id/help', to: 'questions#help'
+  post 'courses/:id/resolve', to: 'questions#resolve'
+
+  # USER
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htmlc
 end

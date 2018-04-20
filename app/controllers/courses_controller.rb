@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, except: [:index, :new, :create]
   before_action :authenticate_user
 
   # GET /courses
@@ -56,6 +56,17 @@ class CoursesController < ApplicationController
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def enroll
+    return if current_user.is_student?(@course) || current_user.is_staff?(@course)
+    current_user.enroll(@course)
+    redirect_back fallback_location: @course
+  end
+
+  def unenroll
+    current_user.unenroll(@course)
+    redirect_back fallback_location: @course
   end
 
   private

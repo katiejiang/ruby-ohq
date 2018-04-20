@@ -16,6 +16,12 @@
           <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
           <% if current_user.is_staff?(@course) %>
             <%= link_to 'Settings', edit_course_path(@course), class: 'ui button' %>
+          <% else %>
+            <% if !current_user.is_student?(@course) %>
+              <%= link_to 'Enroll', "/courses/#{@course.id}/enroll", method: :post, class: 'ui button' %>
+            <% else %>
+              <%= link_to 'Unenroll', "/courses/#{@course.id}/unenroll", method: :post, class: 'ui button' %>
+            <% end %>
           <% end %>
 
 
