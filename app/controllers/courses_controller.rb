@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :set_course, except: [:index, :new, :create]
+  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course_id, only: [:enroll, :unenroll]
   before_action :authenticate_user
 
   # GET /courses
@@ -73,6 +74,10 @@ class CoursesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.find(params[:id])
+    end
+
+    def set_course_id
+      @course = Course.find(params[:course_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

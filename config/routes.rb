@@ -6,18 +6,16 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :courses do
+    post '/enroll', to: 'courses#enroll'
+    delete '/unenroll', to: 'courses#unenroll'
     resources :questions do
+      post '/help', to: 'questions#help'
+      post '/resolve', to: 'questions#resolve'
     end
   end
   resources :users, except: [:index]
 
   # COURSES
-  post '/courses/:id/enroll', to: 'courses#enroll'
-  delete '/courses/:id/unenroll', to: 'courses#unenroll'
-
-  # QUESTIONS
-  post 'courses/:id/help', to: 'questions#help'
-  post 'courses/:id/resolve', to: 'questions#resolve'
 
   # USER
 
