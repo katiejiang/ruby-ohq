@@ -35,66 +35,6 @@
 
         <p id="notice"><%= notice %></p>
       </div>
-
-      <h3 class="ui header">
-        <i class="sky student tiny icon"></i>
-        <div class="content">
-          Instructor Courses
-        </div>
-      </h3>
-      <table class="ui table">
-        <thead>
-          <tr>
-            <th class="three wide">Name</th>
-            <th class="twelve wide">Description</th>
-            <th class="one wide"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @user.instructor_courses.each do |course| %>
-            <tr>
-              <td><%= course.name %></td>
-              <td><%= course.description %></td>
-              <td class="collapsing"><%= link_to 'Show', course, class: 'ui button' %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-
-      <h3 class="ui header">
-        <i class="yellow pencil alternate tiny icon"></i>
-        <div class="content">
-          Student Courses
-        </div>
-      </h3>
-      <table class="ui table">
-        <thead>
-          <tr>
-            <th class="three wide">Name</th>
-            <th class="twelve wide">Description</th>
-            <th class="one wide"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if @user.student_courses.empty? %>
-            <tr>
-              <td colspan="3">You are currently not enrolled in any courses.</td>
-            </tr>
-          <% else %>
-            <% @user.student_courses.each do |course| %>
-              <tr>
-                <td><%= course.name %></td>
-                <td><%= course.description %></td>
-                <td class="collapsing">
-                  <div class="ui vertical buttons">
-                    <%= link_to 'Show', course, class: 'ui button' %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
     </div>
   </div>
 </div

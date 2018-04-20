@@ -2,14 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :logged_in?, :current_user
 
-  def index
-    if logged_in?
-      redirect_to '/courses'
-    else
-      redirect_to '/login'
-    end
-  end
-
   private
 
   def logged_in?

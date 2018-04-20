@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'application#index'
+  root 'welcome#index'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
@@ -14,6 +14,6 @@ Rails.application.routes.draw do
     end
   end
   resources :users, except: [:index]
-  
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htmlc
 end
