@@ -11,20 +11,24 @@
       </h2>
 
       <%= link_to 'New Course', new_course_path, class: 'ui sky button' %>
+      <div class="ui icon input">
+        <input id="course-search" type="text" placeholder="Search courses">
+        <i class="search icon"></i>
+      </div>
 
-      <table class="ui table">
+      <table class="ui unstackable table">
         <thead>
           <tr>
             <th class="three wide">Name</th>
-            <th class="twelve wide" colspan="2">Description</th>
+            <th class="twelve wide">Description</th>
+            <th class="one wide"></th>
           </tr>
         </thead>
-
         <tbody>
           <% @courses.each do |course| %>
             <tr>
-              <td><%= course.name %></td>
-              <td><%= course.description %></td>
+              <td class="searchable-td"><%= course.name %></td>
+              <td class="searchable-td"><%= course.description %></td>
               <td><%= link_to 'View', course, class: 'ui button' %></td>
             </tr>
           <% end %>
@@ -35,3 +39,25 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  // the following code snippet was taken from CSS tricks
+  $.expr[':'].icontains = $.expr.createPseudo(function (text) {
+    return function (e) {
+      return $(e).text().toUpperCase().indexOf(text.toUpperCase()) >= 0;
+    };
+  });
+
+  $('#course-search').keyup(function () {
+    var searchText = $(this).val();
+    if (searchText.length > 0) {
+      $('tbody .searchable-td:icontains(' + searchText + ')').addClass('positive');
+      $('.searchable-td.positive').not(':icontains(' + searchText + ')').removeClass('positive');
+      $('tbody td').not(':icontains(' + searchText + ')').closest('tr').addClass('hidden').hide();
+      $('tr.hidden:icontains(' + searchText + ')').removeClass('hidden').show();
+    } else {
+      $('.searchable-td.positive').removeClass('positive');
+      $('tr.hidden').removeClass('hidden').show();
+    }
+  });
+</script>
