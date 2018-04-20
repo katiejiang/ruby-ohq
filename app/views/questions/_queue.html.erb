@@ -1,0 +1,26 @@
+<table class="ui selectable table">
+  <thead>
+    <tr>
+      <th class="three wide">Name</th>
+      <th class="three wide">Status</th>
+      <th>Question</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @course.queue.empty? %>
+      <tr>
+        <td colspan="3">
+          There is currently no one on the queue.
+        </td>
+      </tr>
+    <% else %>
+      <% @course.queue.each do |question| %>
+        <tr class="<%= question.status_color %>" onclick="window.location='<%= course_question_path(@course, question)%>'">
+          <td><%= question.user.name %></td>
+          <td><%= question.status %></td>
+          <td><%= question.text %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

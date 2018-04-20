@@ -43,24 +43,7 @@
   </div>
   <div class="centered row">
     <div class="twelve wide column">
-      <table class="ui selectable table">
-        <thead>
-          <tr>
-            <th class="three wide">Name</th>
-            <th class="three wide">Status</th>
-            <th>Question</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @course.questions.each do |question| %>
-            <tr class="<%= question.status_color %>" onclick="window.location='<%= course_question_path(@course, question)%>'">
-              <td><%= question.user.name %></td>
-              <td><%= question.status %></td>
-              <td><%= question.text %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= render 'questions/queue' %>
     </div>
   </div>
 </div>
