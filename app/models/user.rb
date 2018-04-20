@@ -29,31 +29,11 @@ class User < ApplicationRecord
   end
 
   def enroll
-    Student.create(user: user, course: self, favorite: false)
+    Student.create(user: user, course: self)
   end
 
   def unenroll
     student = Student.create(user: user, course: self)
     student.destroy if student
-  end
-
-  def favorite(course)
-    student = Student.find_by(user: self, course: course)
-    return unless student
-    student.update(favorite: true)
-  end
-
-  def unfavorite(course)
-    student = Student.find_by(user: self, course: course)
-    return unless student
-    student.update(favorite: false)
-  end
-
-  def favorite_courses
-    (students.select{ |student| student[:favorite] }).map{ |student| student.course }
-  end
-
-  def nonfavorite_courses
-    (students.select{ |student| !student[:favorite] }).map{ |student| student.course }
   end
 end

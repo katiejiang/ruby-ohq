@@ -15,7 +15,7 @@ class Course < ApplicationRecord
   end
 
   def add_student(user)
-    Student.create(user: user, course: self, favorite: true)
+    Student.create(user: user, course: self)
   end
 
   def queue
