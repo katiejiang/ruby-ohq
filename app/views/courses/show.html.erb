@@ -3,30 +3,29 @@
 <div class="ui grid container">
   <div class="centered row" style="margin-top: 48px;">
     <div class="twelve wide column">
+      <%= render 'layouts/notice' %>
+      
       <div class="ui segment" style="padding: 40px 48px 36px 48px;">
-        <div class="sixteen wide column">
-          <h2 class="ui header">
-            <%= @course.name %>
-          </h2>
+        <h2 class="ui header">
+          <%= @course.name %>
+        </h2>
 
-          <p>
-            <%= @course.description %>
-          </p>
+        <p>
+          <%= @course.description %>
+        </p>
 
-          <% if current_user.is_staff?(@course) %>
-            <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
-            <%= link_to 'Settings', edit_course_path(@course), class: 'ui button' %>
+        <% if current_user.is_staff?(@course) %>
+          <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
+          <%= link_to 'Settings', edit_course_path(@course), class: 'ui button' %>
           <% elsif current_user.is_student?(@course) %>
             <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
             <%= link_to 'Unenroll', "/courses/#{@course.id}/unenroll", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui button' %>
           <% else %>
             <%= link_to 'Enroll', "/courses/#{@course.id}/enroll", method: :post, class: 'ui button' %>
           <% end %>
-
-          <p id="notice"><%= notice %></p>
-          </div>
         </div>
         <%= render 'questions/queue' %>
       </div>
     </div>
   </div>
+</div>

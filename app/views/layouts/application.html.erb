@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -14,12 +14,16 @@
   </body>
 
   <script type="text/javascript">
-  $('#nav-search').search({
-    'type': 'category',
-    'source': <%= @search_contents %>,
-    'onSelect' : function(result, response) {
-      window.location.replace(result['link'])
-    }
-  })
+    $('#nav-search').search({
+      'type': 'category',
+      'source': <%= @search_contents %>,
+      'onSelect': function (result, response) {
+        window.location.replace(result['link'])
+      }
+    })
+
+    $('.message .close').on('click', function () {
+      $(this).closest('.message').transition('fade');
+    });
   </script>
 </html>
