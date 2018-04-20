@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   # COURSES
   post '/courses/:id/enroll', to: 'courses#enroll'
-  post '/courses/:id/unenroll', to: 'courses#unenroll'
+  delete '/courses/:id/unenroll', to: 'courses#unenroll'
 
   # QUESTIONS
   post 'courses/:id/help', to: 'questions#help'

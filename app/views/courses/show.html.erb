@@ -20,7 +20,7 @@
             <% if !current_user.is_student?(@course) %>
               <%= link_to 'Enroll', "/courses/#{@course.id}/enroll", method: :post, class: 'ui button' %>
             <% else %>
-              <%= link_to 'Unenroll', "/courses/#{@course.id}/unenroll", method: :post, class: 'ui button' %>
+              <%= link_to 'Unenroll', "/courses/#{@course.id}/unenroll", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui button' %>
             <% end %>
           <% end %>
 

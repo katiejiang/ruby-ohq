@@ -85,7 +85,11 @@
               <tr>
                 <td><%= course.name %></td>
                 <td><%= course.description %></td>
-                <td class="collapsing"><%= link_to 'Show', course, class: 'ui button' %></td>
+                <td class="collapsing">
+                  <div class="ui vertical buttons">
+                    <%= link_to 'Show', course, class: 'ui button' %>
+                  </div>
+                </td>
               </tr>
             <% end %>
           <% end %>
