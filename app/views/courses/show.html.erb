@@ -13,39 +13,37 @@
             <%= @course.description %>
           </p>
 
-          <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
           <% if current_user.is_staff?(@course) %>
+            <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
             <%= link_to 'Settings', edit_course_path(@course), class: 'ui button' %>
+          <% elsif current_user.is_student?(@course) %>
+            <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
+            <%= link_to 'Unenroll', "/courses/#{@course.id}/unenroll", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui button' %>
           <% else %>
-            <% if !current_user.is_student?(@course) %>
-              <%= link_to 'Enroll', "/courses/#{@course.id}/enroll", method: :post, class: 'ui button' %>
-            <% else %>
-              <%= link_to 'Unenroll', "/courses/#{@course.id}/unenroll", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui button' %>
-            <% end %>
+            <%= link_to 'Enroll', "/courses/#{@course.id}/enroll", method: :post, class: 'ui button' %>
           <% end %>
-
 
           <p id="notice"><%= notice %></p>
+          </div>
         </div>
+        <table class="ui selectable table">
+          <thead>
+            <tr>
+              <th class="three wide">Name</th>
+              <th class="three wide">Status</th>
+              <th>Question</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @course.queue.each do |question| %>
+              <tr class="<%= question.status_color %>" onclick="window.location='<%= course_question_path(@course, question)%>'">
+                <td><%= question.user.name %></td>
+                <td><%= question.status %></td>
+                <td><%= question.text %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
-      <table class="ui selectable table">
-        <thead>
-          <tr>
-            <th class="three wide">Name</th>
-            <th class="three wide">Status</th>
-            <th>Question</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @course.queue.each do |question| %>
-          <tr class="<%= question.status_color %>" onclick="window.location='<%= course_question_path(@course, question)%>'">
-            <td><%= question.user.name %></td>
-            <td><%= question.status %></td>
-            <td><%= question.text %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
     </div>
   </div>
-</div>
