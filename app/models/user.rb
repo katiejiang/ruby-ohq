@@ -36,4 +36,8 @@ class User < ApplicationRecord
     student = Student.find_by(user: self, course: course)
     student.destroy if student
   end
+
+  def name_email
+    "#{name} (#{email})"
+  end
 end

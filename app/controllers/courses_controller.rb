@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :set_course_id, only: [:enroll, :unenroll]
+  before_action :set_course_id, only: [:enroll, :unenroll, :invite]
   before_action :authenticate_user
 
   # GET /courses
@@ -21,6 +21,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+    @users = User.all
   end
 
   # POST /courses
@@ -68,6 +69,15 @@ class CoursesController < ApplicationController
   def unenroll
     current_user.unenroll(@course)
     redirect_back fallback_location: @course
+  end
+
+  def invite
+    params[:invites].each do |uid|
+      user = User.find(uid)
+      staff = Staff.find_by(user: user, course: @course)
+      Staff.create(user: user, course: @course, admin: false) unless staff
+    end
+    redirect_to edit_course_path(@course)
   end
 
   private

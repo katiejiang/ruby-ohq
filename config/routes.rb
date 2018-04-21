@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :courses do
     post '/enroll', to: 'courses#enroll'
     delete '/unenroll', to: 'courses#unenroll'
+    post '/invite', to: 'courses#invite'
     resources :questions do
       post '/help', to: 'questions#help'
       post '/resolve', to: 'questions#resolve'

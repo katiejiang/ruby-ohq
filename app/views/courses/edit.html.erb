@@ -3,19 +3,46 @@
 <div class="ui grid container">
   <div class="centered row" style="margin-top: 48px;">
     <div class="twelve wide column">
+      <%= render 'layouts/notice' %>
       <div class="ui segment" style="padding: 40px 48px 36px 48px;">
-        <div class="sixteen wide column">
-          <h2 class="ui header">
-            Course Settings
-            <div class="sub header">
-              Update course description and manage staff members
-            </div>
-          </h2>
-          <h4 class="ui dividing header">Course Description</h4>
-          <%= render 'edit_form', course: @course %>
+        <h2 class="ui header">
+          Course Settings
+          <div class="sub header">
+            Update course description and manage staff members
+          </div>
+        </h2>
+        <h4 class="ui dividing header">Course Description</h4>
+        <%= render 'edit_form', course: @course %>
 
-          <h4 class="ui dividing header">Manage Staff</h4>
-        </div>
+        <h4 class="ui dividing header">Manage Staff</h4>
+        <%= form_tag course_invite_path(@course), method: 'post' do %>
+          <%= select_tag 'invites', options_from_collection_for_select(@users, 'id', 'name_email'), multiple: true, prompt: 'Search by name or email', class: 'ui search dropdown' %>
+          <%= submit_tag 'Send Invite', class: 'ui button' %>
+        <% end %>
+        <table class="ui collapsing table">
+        <tbody>
+          <% @course.staffs.each do |staff| %>
+            <tr>
+              <td><%= staff.user.name %></td>
+              <td>
+                <i class="mail icon"></i>
+                <%= staff.user.email %>
+              </td>
+              <td>
+                <select class="ui fluid small dropdown">
+                  <% if staff.admin %>
+                    <option value="admin" selected="selected">Admin</option>
+                    <option value="staff">Staff</option>
+                  <% else %>
+                    <option value="admin">Admin</option>
+                    <option value="staff" selected="selected">Staff</option>
+                  <% end %>
+                </select>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
       </div>
     </div>
   </div>
