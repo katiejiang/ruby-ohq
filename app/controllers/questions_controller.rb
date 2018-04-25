@@ -41,7 +41,7 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1.json
   def update
     if @question.user == current_user && @question.update(question_params)
-      redirect_to @question.course
+      redirect_to course_question_path(@course, @question)
     else
       render :edit
     end
