@@ -29,10 +29,54 @@
             </tr>
           </tbody>
         </table>
+        <% if @user == current_user %>
+          <%= link_to 'Edit', edit_user_path(@user), class: 'ui sky button' %>
+          <%= link_to 'Change Password', edit_user_path(@user), class: 'ui button' %>
+          <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui google plus button' %>
+        <% end %>
 
-        <%= link_to 'Edit', edit_user_path(@user), class: 'ui sky button' %>
-        <%= link_to 'Change Password', edit_user_path(@user), class: 'ui button' %>
-        <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui google plus button' %>
+        <% if !@user.instructor_courses.empty? %>
+        <h3 class="ui header">
+          <i class="sky student tiny icon"></i>
+          <div class="content">
+            Instructor Courses
+          </div>
+        </h3>
+        <table class="ui table">
+          <tbody>
+
+              <% @user.instructor_courses.each do |course| %>
+                <tr>
+                  <td><%= course.name %></td>
+                  <td class="collapsing"><%= link_to 'View', course, class: 'ui button' %></td>
+                </tr>
+              <% end %>
+          </tbody>
+        </table>
+        <% end %>
+
+        <% if !@user.student_courses.empty? %>
+        <h3 class="ui header">
+          <i class="yellow pencil alternate tiny icon"></i>
+          <div class="content">
+            Student Courses
+          </div>
+        </h3>
+        <table class="ui table">
+          <tbody>
+              <% @user.student_courses.each do |course| %>
+                <tr>
+                  <td><%= course.name %></td>
+                  <td class="collapsing">
+                    <div class="ui vertical buttons">
+                      <%= link_to 'View', course, class: 'ui button' %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+          </tbody>
+        </table>
+        <% end %>
       </div>
     </div>
   </div>
