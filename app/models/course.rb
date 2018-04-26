@@ -1,3 +1,4 @@
+# Course model
 class Course < ApplicationRecord
   has_many :students, dependent: :destroy
   has_many :staffs, dependent: :destroy
@@ -24,6 +25,6 @@ class Course < ApplicationRecord
   end
 
   def queue
-    questions.select{ |question| question[:status] != 'Resolved' }
+    questions.reject { |question| question[:status] == 'Resolved' }
   end
 end

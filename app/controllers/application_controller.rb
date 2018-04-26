@@ -37,12 +37,12 @@ class ApplicationController < ActionController::Base
 
   def search_names
     User.all.map do |user|
-     {
-       'category' => 'User name',
-       'link' => "/users/#{user.id}",
-       'title' => user.name
-     }
-   end
+      {
+        'category' => 'User name',
+        'link' => "/users/#{user.id}",
+        'title' => user.name
+      }
+    end
   end
 
   def search_emails
