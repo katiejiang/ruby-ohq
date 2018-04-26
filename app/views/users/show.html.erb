@@ -41,13 +41,11 @@
             Instructor Courses
           </div>
         </h3>
-        <table class="ui table">
+        <table class="ui selectable table">
           <tbody>
-
               <% @user.instructor_courses.each do |course| %>
-                <tr>
+                <tr onclick="window.location='<%= course_path(course) %>'">
                   <td><%= course.name %></td>
-                  <td class="collapsing"><%= link_to 'View', course, class: 'ui button' %></td>
                 </tr>
               <% end %>
           </tbody>
@@ -61,16 +59,11 @@
             Student Courses
           </div>
         </h3>
-        <table class="ui table">
+        <table class="ui selectable table">
           <tbody>
               <% @user.student_courses.each do |course| %>
-                <tr>
+                <tr onclick="window.location='<%= course_path(course) %>'">
                   <td><%= course.name %></td>
-                  <td class="collapsing">
-                    <div class="ui vertical buttons">
-                      <%= link_to 'View', course, class: 'ui button' %>
-                    </div>
-                  </td>
                 </tr>
               <% end %>
           </tbody>
