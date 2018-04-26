@@ -10,6 +10,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
   validate :valid_email
+  validates_confirmation_of :password, :message => "does not match. Please try again!"
 
   def valid_email
     return unless email

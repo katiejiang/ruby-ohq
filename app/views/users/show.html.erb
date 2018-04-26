@@ -31,7 +31,6 @@
         </table>
         <% if @user == current_user %>
           <%= link_to 'Edit', edit_user_path(@user), class: 'ui sky button' %>
-          <%= link_to 'Change Password', edit_user_path(@user), class: 'ui button' %>
           <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui google plus button' %>
         <% end %>
 
