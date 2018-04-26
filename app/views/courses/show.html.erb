@@ -17,15 +17,21 @@
         <% if current_user.is_staff?(@course) %>
           <%= link_to 'Help', course_help_path(@course), class: 'ui sky button' %>
           <%= link_to 'Dashboard', edit_course_path(@course), class: 'ui button' %>
-          <% elsif current_user.is_student?(@course) %>
-            <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
-            <%= link_to 'Unenroll', "/courses/#{@course.id}/unenroll", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui button' %>
-          <% else %>
-            <%= link_to 'Enroll', "/courses/#{@course.id}/enroll", method: :post, class: 'ui button' %>
-          <% end %>
-        </div>
-        <%= render 'questions/queue' %>
+        <% elsif current_user.is_student?(@course) %>
+          <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
+          <%= link_to 'Unenroll', "/courses/#{@course.id}/unenroll", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui button' %>
+        <% else %>
+          <%= link_to 'Enroll', "/courses/#{@course.id}/enroll", method: :post, class: 'ui button' %>
+        <% end %>
       </div>
+    </div>
+  </div>
+  <div class="centered row">
+    <div class="nine wide column">
+      <%= render 'questions/queue' %>
+    </div>
+    <div class="three wide column">
+      <%= render 'courses/staff' %>
     </div>
   </div>
 </div>

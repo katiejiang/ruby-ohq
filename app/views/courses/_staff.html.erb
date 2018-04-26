@@ -1,0 +1,14 @@
+<table class="ui selectable table">
+  <thead>
+    <tr>
+      <th>Staff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @course.staffs.each do |staff| %>
+    <tr onclick="window.location='<%= user_path(staff.user) %>'">
+      <td><%= staff.user.name %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
