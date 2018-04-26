@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
   validate :valid_email
-  validates_confirmation_of :password, :message => "does not match. Please try again!"
+  validates_confirmation_of :password, message: 'does not match. Please try again!'
 
   def valid_email
     return unless email
@@ -18,15 +18,15 @@ class User < ApplicationRecord
   end
 
   def is_admin?(course)
-    return !Staff.find_by(user: self, course: course, admin: true).nil?
+    !Staff.find_by(user: self, course: course, admin: true).nil?
   end
 
   def is_staff?(course)
-    return !Staff.find_by(user: self, course: course).nil?
+    !Staff.find_by(user: self, course: course).nil?
   end
 
   def is_student?(course)
-    return !Student.find_by(user: self, course: course).nil?
+    !Student.find_by(user: self, course: course).nil?
   end
 
   def enroll(course)

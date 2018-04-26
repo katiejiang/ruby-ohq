@@ -1,9 +1,9 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :set_course_id, only: [:help, :enroll, :unenroll, :invite, :change_admin, :change_staff, :remove_staff]
+  before_action :set_course, only: %i[show edit update destroy]
+  before_action :set_course_id, only: %i[help enroll unenroll invite change_admin change_staff remove_staff]
   before_action :authenticate_user
-  before_action :admin_only, only: [:invite, :change_admin, :change_staff, :destroy]
-  before_action :staff_only, only: [:edit, :update]
+  before_action :admin_only, only: %i[invite change_admin change_staff destroy]
+  before_action :staff_only, only: %i[edit update]
 
   # GET /courses
   # GET /courses.json
@@ -13,8 +13,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/1
   # GET /courses/1.json
-  def show
-  end
+  def show; end
 
   # GET /courses/new
   def new
@@ -90,7 +89,7 @@ class CoursesController < ApplicationController
         Staff.create(user: user, course: @course, admin: false) unless staff
       end
     end
-    redirect_to edit_course_path(@course), notice: "Successfully invited users to staff."
+    redirect_to edit_course_path(@course), notice: 'Successfully invited users to staff.'
   end
 
   def change_admin
@@ -98,7 +97,7 @@ class CoursesController < ApplicationController
     redirect_to edit_course_path(@course) unless user
     staff = Staff.find_by(user: user, course: @course)
     redirect_to edit_course_path(@course) unless staff
-    staff.update({ admin: true })
+    staff.update(admin: true)
     redirect_to edit_course_path(@course), notice: "Promoted #{user.name} to an admin."
   end
 
@@ -107,7 +106,7 @@ class CoursesController < ApplicationController
     redirect_to edit_course_path(@course) unless user
     staff = Staff.find_by(user: user, course: @course)
     redirect_to edit_course_path(@course) unless staff
-    staff.update({ admin: false })
+    staff.update(admin: false)
     redirect_to edit_course_path(@course), notice: "Removed admin status from #{user.name}."
   end
 
@@ -123,25 +122,25 @@ class CoursesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.find(params[:id])
-    end
 
-    def set_course_id
-      @course = Course.find(params[:course_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_course
+    @course = Course.find(params[:id])
+  end
 
-    def admin_only
-      return if !current_user.is_admin?(@course)
-    end
+  def set_course_id
+    @course = Course.find(params[:course_id])
+  end
 
-    def staff_only
-      redirect_to @course unless current_user.is_staff?(@course)
-    end
+  def admin_only
+    return unless current_user.is_admin?(@course)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def course_params
-      params.require(:course).permit(:name, :description)
-    end
+  def staff_only
+    redirect_to @course unless current_user.is_staff?(@course)
+  end
+
+  def course_params
+    params.require(:course).permit(:name, :description)
+  end
 end

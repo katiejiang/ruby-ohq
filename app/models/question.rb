@@ -17,6 +17,6 @@ class Question < ApplicationRecord
   end
 
   def asked_by?(user)
-    return self.user == user
+    self.user == user
   end
 end
