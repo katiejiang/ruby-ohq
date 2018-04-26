@@ -14,6 +14,19 @@ class Course < ApplicationRecord
     Staff.create(user: user, course: self, admin: false)
   end
 
+  def update_to_staff(user)
+    staff = Staff.find_by(user: user, course: self)
+    if staff
+      staff.update({ admin: false })
+      print 'UPDATTTEEEDD WOOOOO' if staff.save
+    end
+  end
+
+  def remove_staff(user)
+    staff = Staff.find_by(user: user, course: @course)
+    staff.destroy
+  end
+
   def add_student(user)
     Student.create(user: user, course: self)
   end

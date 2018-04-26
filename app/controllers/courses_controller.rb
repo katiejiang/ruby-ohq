@@ -1,7 +1,8 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :set_course_id, only: [:enroll, :unenroll, :invite]
+  before_action :set_course_id, only: [:enroll, :unenroll, :invite, :change_admin, :change_staff, :remove_staff]
   before_action :authenticate_user
+  before_action :admin_only, only: [:invite, :change_admin, :change_staff]
 
   # GET /courses
   # GET /courses.json
@@ -74,9 +75,35 @@ class CoursesController < ApplicationController
   def invite
     params[:invites].each do |uid|
       user = User.find(uid)
-      staff = Staff.find_by(user: user, course: @course)
-      Staff.create(user: user, course: @course, admin: false) unless staff
+      if user
+        staff = Staff.find_by(user: user, course: @course)
+        Staff.create(user: user, course: @course, admin: false) unless staff
+      end
     end
+    redirect_to edit_course_path(@course)
+  end
+
+  def change_admin
+    user = User.find(params[:uid])
+    redirect_to edit_course_path(@course) unless user
+    staff = Staff.find_by(user: user, course: @course)
+    redirect_to edit_course_path(@course) unless staff
+    staff.update({ admin: true })
+    redirect_to edit_course_path(@course)
+  end
+
+  def change_staff
+    user = User.find(params[:uid])
+    redirect_to edit_course_path(@course) unless user
+    staff = Staff.find_by(user: user, course: @course)
+    redirect_to edit_course_path(@course) unless staff
+    staff.update({ admin: false })
+    redirect_to edit_course_path(@course)
+  end
+
+  def remove_staff
+    user = User.find(params[:uid])
+    @course.remove_staff(user) unless user
     redirect_to edit_course_path(@course)
   end
 
@@ -88,6 +115,10 @@ class CoursesController < ApplicationController
 
     def set_course_id
       @course = Course.find(params[:course_id])
+    end
+
+    def admin_only
+      return if !current_user.is_admin?(@course)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
