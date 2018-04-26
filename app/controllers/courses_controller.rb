@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :set_course_id, only: [:enroll, :unenroll, :invite, :change_admin, :change_staff, :remove_staff]
+  before_action :set_course_id, only: [:help, :enroll, :unenroll, :invite, :change_admin, :change_staff, :remove_staff]
   before_action :authenticate_user
   before_action :admin_only, only: [:invite, :change_admin, :change_staff]
 
@@ -59,6 +59,15 @@ class CoursesController < ApplicationController
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def help
+    if current_user.is_staff?(@course)
+      @course.queue.each do |question|
+        return redirect_to course_question_path(@course, question) if question.status == 'Waiting'
+      end
+    end
+    redirect_to @course
   end
 
   def enroll

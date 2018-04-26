@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :courses do
+    get '/help', to: 'courses#help'
     post '/enroll', to: 'courses#enroll'
     delete '/unenroll', to: 'courses#unenroll'
     post '/invite', to: 'courses#invite'
