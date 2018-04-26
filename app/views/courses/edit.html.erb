@@ -29,7 +29,7 @@
                 <%= staff.user.email %>
               </td>
               <td>
-                <% if current_user.is_admin?(@course) && staff.user.id != current_user.id %>
+                <% if current_user.admin?(@course) && staff.user.id != current_user.id %>
                 <select class="ui fluid small dropdown admin-staff" data-id="<%= staff.user.id %>">
                   <% if staff.admin %>
                     <option value="admin" selected="selected">Admin</option>
@@ -48,9 +48,9 @@
                 <% end %>
               </td>
               <td>
-                <% if current_user.is_staff?(@course) && staff.user.id == current_user.id %>
+                <% if current_user.staff?(@course) && staff.user.id == current_user.id %>
                   <%= link_to 'Leave staff', "remove-staff/#{staff.user.id}", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red tiny basic button' %>
-                <% elsif current_user.is_admin?(@course) %>
+                <% elsif current_user.admin?(@course) %>
                   <%= link_to 'Remove from staff', "remove-staff/#{staff.user.id}", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red tiny basic button' %>
                 <% end %>
               </td>

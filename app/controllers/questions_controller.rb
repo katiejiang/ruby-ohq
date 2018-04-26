@@ -1,3 +1,4 @@
+# Course questions controller
 class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy]
   before_action :set_question_id, only: %i[help resolve]
@@ -21,14 +22,14 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
-    redirect_to course_question_path(@course, @question) unless @question.user == current_user
+    redirect_to cq_path unless @question.user == current_user
   end
 
   # POST /questions
   # POST /questions.json
   def create
-    @question = @course.questions.new(question_params.merge(user_id: current_user.id, status: 'Waiting'))
-
+    qparams = question_params.merge(user_id: current_user.id, status: 'Waiting')
+    @question = @course.questions.new(qparams)
     if @question.save
       redirect_to @course
     else
@@ -40,7 +41,7 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1.json
   def update
     if @question.user == current_user && @question.update(question_params)
-      redirect_to course_question_path(@course, @question)
+      redirect_to cq_path
     else
       render :edit
     end
@@ -55,14 +56,15 @@ class QuestionsController < ApplicationController
 
   # POST /questions/1/help
   def help
-    return unless current_user.is_staff?(@course)
+    return unless current_user.staff?(@course)
     @question.update(status: 'Being helped')
-    redirect_to course_question_path(@course, @question)
+    redirect_to cq_path
   end
 
   # POST /questions/1/resolve
   def resolve
-    return unless current_user.is_staff?(@course) || @question.user == current_user
+    return unless current_user.staff?(@course)
+    return unless @question.user == current_user
     @question.update(status: 'Resolved')
     redirect_to @course
   end
@@ -82,7 +84,10 @@ class QuestionsController < ApplicationController
     @course = Course.find(params[:course_id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  def cq_path
+    course_question_path(@course, @question)
+  end
+
   def question_params
     params.require(:question).permit(:user_id, :course_id, :text, :created_at)
   end

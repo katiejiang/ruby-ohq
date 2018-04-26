@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
   private
 
   def search_contents
-    courses = Course.all.map { |course| { 'category': 'Course', 'link': "/courses/#{course.id}", 'title': course.name } }
-    names = User.all.map { |user| { 'category': 'User name', 'link': "/users/#{user.id}", 'title': user.name } }
-    emails = User.all.map { |user| { 'category': 'User email', 'link': "/users/#{user.id}", 'title': user.email } }
+    courses = search_courses
+    names = search_names
+    emails = search_emails
     @search_contents = (courses + names + emails).to_json.to_s.html_safe
   end
 
@@ -23,5 +23,35 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user
     redirect_to '/' unless logged_in?
+  end
+
+  def search_courses
+    Course.all.map do |course|
+      {
+        'category' => 'Course',
+        'link' => "/courses/#{course.id}",
+        'title' => course.name
+      }
+    end
+  end
+
+  def search_names
+    User.all.map do |user|
+     {
+       'category' => 'User name',
+       'link' => "/users/#{user.id}",
+       'title' => user.name
+     }
+   end
+  end
+
+  def search_emails
+    User.all.map do |user|
+      {
+        'category' => 'User email',
+        'link' => "/users/#{user.id}",
+        'title' => user.email
+      }
+    end
   end
 end

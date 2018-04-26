@@ -14,10 +14,10 @@
           <%= @course.description %>
         </p>
 
-        <% if current_user.is_staff?(@course) %>
+        <% if current_user.staff?(@course) %>
           <%= link_to 'Help', course_help_path(@course), class: 'ui sky button' %>
           <%= link_to 'Dashboard', edit_course_path(@course), class: 'ui button' %>
-        <% elsif current_user.is_student?(@course) %>
+        <% elsif current_user.student?(@course) %>
           <%= link_to 'New Question', new_course_question_path(@course), class: 'ui sky button' %>
           <%= link_to 'Unenroll', "/courses/#{@course.id}/unenroll", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui button' %>
         <% else %>

@@ -28,7 +28,7 @@
                   <% if @question.status != 'Resolved' %>
                     <%= link_to 'Resolve', course_question_resolve_path(@course, @question), method: :post, class: 'ui button' %>
                   <% end %>
-                <% elsif current_user.is_staff?(@course) %>
+                <% elsif current_user.staff?(@course) %>
                   <% if @question.status == 'Waiting' %>
                     <%= link_to 'Help', course_question_help_path(@course, @question), method: :post, class: 'ui sky button' %>
                   <% elsif @question.status == 'Being helped' %>

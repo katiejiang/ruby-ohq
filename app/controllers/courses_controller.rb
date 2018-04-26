@@ -54,7 +54,7 @@ class CoursesController < ApplicationController
   end
 
   def help
-    if current_user.is_staff?(@course)
+    if current_user.staff?(@course)
       @course.queue.each do |question|
         cqpath = course_question_path(@course, question)
         redirect_to cqpath if question.status == 'Waiting'
@@ -64,8 +64,8 @@ class CoursesController < ApplicationController
   end
 
   def enroll
-    return if current_user.is_student?(@course)
-    return if current_user.is_staff?(@course)
+    return if current_user.student?(@course)
+    return if current_user.staff?(@course)
     current_user.enroll(@course)
     redirect_back fallback_location: @course
   end
@@ -132,11 +132,11 @@ class CoursesController < ApplicationController
   end
 
   def admin_only
-    return unless current_user.is_admin?(@course)
+    return unless current_user.admin?(@course)
   end
 
   def staff_only
-    redirect_to @course unless current_user.is_staff?(@course)
+    redirect_to @course unless current_user.staff?(@course)
   end
 
   def course_params

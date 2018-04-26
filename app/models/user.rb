@@ -17,15 +17,15 @@ class User < ApplicationRecord
     errors.add(:email, "must have an '@' and a '.'") unless email.include?('@') && email.include?('.')
   end
 
-  def is_admin?(course)
+  def admin?(course)
     !Staff.find_by(user: self, course: course, admin: true).nil?
   end
 
-  def is_staff?(course)
+  def staff?(course)
     !Staff.find_by(user: self, course: course).nil?
   end
 
-  def is_student?(course)
+  def student?(course)
     !Student.find_by(user: self, course: course).nil?
   end
 
