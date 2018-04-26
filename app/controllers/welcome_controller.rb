@@ -1,8 +1,6 @@
+# Welcome controller
 class WelcomeController < ApplicationController
   def index
-    unless logged_in?
-      redirect_to '/login'
-      nil
-    end
+    redirect_to '/login' unless logged_in?
   end
 end
