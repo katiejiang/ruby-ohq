@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   before_action :set_course_id, only: [:help, :enroll, :unenroll, :invite, :change_admin, :change_staff, :remove_staff]
   before_action :authenticate_user
-  before_action :admin_only, only: [:invite, :change_admin, :change_staff]
+  before_action :admin_only, only: [:invite, :change_admin, :change_staff, :destroy]
   before_action :staff_only, only: [:edit, :update]
 
   # GET /courses

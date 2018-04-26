@@ -13,7 +13,9 @@
 <div class="actions">
   <%= form.submit 'Save', class: 'ui sky button' %>
   <%= link_to 'Cancel', @course, class: 'ui button' %>
-  <%= link_to 'Delete', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui google plus button' %>
+  <% if current_user.is_admin?(@course) %>
+    <%= link_to 'Delete', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui google plus button' %>
+  <% end %>
 </div>
 
 <% if course.errors.any? %>

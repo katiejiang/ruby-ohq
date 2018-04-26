@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     post '/change-admin', to: 'courses#change_admin'
     post '/change-staff', to: 'courses#change_staff'
     delete '/remove-staff/:uid', to: 'courses#remove_staff'
-    resources :questions do
+    resources :questions, except: [:index] do
       post '/help', to: 'questions#help'
       post '/resolve', to: 'questions#resolve'
     end
