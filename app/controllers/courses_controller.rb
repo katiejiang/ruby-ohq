@@ -3,6 +3,7 @@ class CoursesController < ApplicationController
   before_action :set_course_id, only: [:help, :enroll, :unenroll, :invite, :change_admin, :change_staff, :remove_staff]
   before_action :authenticate_user
   before_action :admin_only, only: [:invite, :change_admin, :change_staff]
+  before_action :staff_only, only: [:edit, :update]
 
   # GET /courses
   # GET /courses.json
@@ -133,6 +134,10 @@ class CoursesController < ApplicationController
 
     def admin_only
       return if !current_user.is_admin?(@course)
+    end
+
+    def staff_only
+      redirect_to @course unless current_user.is_staff?(@course)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
