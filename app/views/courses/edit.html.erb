@@ -47,6 +47,13 @@
                   <% end %>
                 <% end %>
               </td>
+              <td>
+                <% if current_user.is_staff?(@course) && staff.user.id == current_user.id %>
+                  <%= link_to 'Leave staff', "remove-staff/#{staff.user.id}", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red tiny basic button' %>
+                <% elsif current_user.is_admin?(@course) %>
+                  <%= link_to 'Remove from staff', "remove-staff/#{staff.user.id}", method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red tiny basic button' %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -61,6 +68,7 @@ $(document).ready(function () {
   $('.admin-staff').dropdown({
     onChange: function(val) {
       var staffId = $(this).find('select').data('id')
+      console.log(staffId)
       $.ajax({
         url: '/courses/<%= @course.id %>/change-' + val,
         type: 'POST',
@@ -68,8 +76,7 @@ $(document).ready(function () {
           uid: staffId
         },
         success: function() {
-          console.log('poop')
-          return false
+          location.reload()
         }
       })
     }

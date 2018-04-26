@@ -42,7 +42,7 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+        format.html { redirect_to edit_course_path(@course), notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit }
@@ -80,7 +80,7 @@ class CoursesController < ApplicationController
         Staff.create(user: user, course: @course, admin: false) unless staff
       end
     end
-    redirect_to edit_course_path(@course)
+    redirect_to edit_course_path(@course), notice: "Successfully invited users to staff."
   end
 
   def change_admin
@@ -89,7 +89,7 @@ class CoursesController < ApplicationController
     staff = Staff.find_by(user: user, course: @course)
     redirect_to edit_course_path(@course) unless staff
     staff.update({ admin: true })
-    redirect_to edit_course_path(@course)
+    redirect_to edit_course_path(@course), notice: "Promoted #{user.name} to an admin."
   end
 
   def change_staff
@@ -98,13 +98,18 @@ class CoursesController < ApplicationController
     staff = Staff.find_by(user: user, course: @course)
     redirect_to edit_course_path(@course) unless staff
     staff.update({ admin: false })
-    redirect_to edit_course_path(@course)
+    redirect_to edit_course_path(@course), notice: "Removed admin status from #{user.name}."
   end
 
   def remove_staff
-    user = User.find(params[:uid])
-    @course.remove_staff(user) unless user
-    redirect_to edit_course_path(@course)
+    if params[:uid] != current_user.id
+      user = User.find(params[:uid])
+      @course.remove_staff(user) if user
+      redirect_to edit_course_path(@course), notice: "Removed #{user.name} from staff."
+    else
+      @course.remove_staff(current_user)
+      redirect_to @course, notice: "Successfully left the staff for #{@course.name}."
+    end
   end
 
   private
