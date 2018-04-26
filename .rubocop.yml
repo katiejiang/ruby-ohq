@@ -1,0 +1,9 @@
+AllCops:
+  Exclude:
+    - db/*.rb
+    - config/*.rb
+    - config/initializers/*.rb
+    - bin/*
+    - test/controllers/*.rb
+    - test/system/*.rb
+    - Gemfile
