@@ -1,3 +1,4 @@
+# Users controllers
 class UsersController < ApplicationController
   before_action :set_user, except: %i[index new create]
   before_action :authenticate_user, except: %i[new create]
@@ -55,14 +56,11 @@ class UsersController < ApplicationController
   end
 
   def permission_required
-    unless @user == current_user
-      redirect_to current_user
-      nil
-    end
+    redirect_to current_user if @user != current_user
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password,
+                                 :password_confirmation)
   end
 end
